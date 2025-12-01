@@ -1,8 +1,8 @@
-# 💫 AdventofCode2025
+# 💫 AdventofCode
 
 ## 📖 Description
 
-All the scripts for the advent of code 2025
+All the scripts for the advent of code
 
 ## 📂 Indice
 - [Authors](#Authors)
