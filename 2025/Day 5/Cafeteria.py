@@ -21,17 +21,21 @@ for line in file:
     if part == 1:
         # split range
         ranges.append([int(x) for x in line.split("-")])
-    else:
-        # singolo numero
-        numbers.append(int(line))
-        
-for num in numbers:
-    count = 0
-    print("\t\tResult", result)
-    for i in ranges:
-        print("Number:", num, ", ranges:", i)
-        if i[0] <= num <= i[1]:
-            result += 1
-            break
 
-print("Result:", result)
+
+# To understand
+ranges.sort(key=lambda x: x[0])
+
+merged = []
+
+for start, end in ranges:
+    if not merged or start > merged[-1][1]:
+        merged.append([start, end])
+    else:
+        merged[-1][1] = max(merged[-1][1], end)
+
+count = 0
+for i in merged:
+    count += i[1] - i[0] + 1
+
+print("Result", count)
