@@ -22,39 +22,53 @@ with open(FILE, "r") as f:
     file = f.read().splitlines()
     
 rows, cols = len(file), len(file[0])
-number = 0
+allNumber = 0
+loop = True
 
-for line in range(rows):
-    print("\t" + file[line])
-    printSeparator()
-    
-    for col in range(cols):
-        print("char: " + file[line][col])
+while loop:
+    number = 0
+    for line in range(rows):
+        print("\t" + file[line])
+        row = list(file[line])
+        printSeparator()
         
-        count = 0
-        if file[line][col] == PRINTER:
+        for col in range(cols):
+            #print("char: " + file[line][col])
             
-            for dr, dc in directions:
-                nextY = line + dr
-                nextX = col + dc
+            count = 0
+            if file[line][col] == PRINTER:
                 
-                print("🔳 " + str(count))
-                
-                print("Direction (" + str(dr) + ", " + str(dc) + "):", end=" ")
-                if 0 <= nextY < rows and 0 <= nextX < cols:
-                    print("✅", end=" ")
-                    if file[nextY][nextX] == PRINTER:
-                        print("🖨️")
-                        count += 1
+                for dr, dc in directions:
+                    nextY = line + dr
+                    nextX = col + dc
+                    
+                    #print("🔳 " + str(count))
+                    
+                    #print("Direction (" + str(dr) + ", " + str(dc) + "):", end=" ")
+                    if 0 <= nextY < rows and 0 <= nextX < cols:
+                        #print("✅", end=" ")
+                        if file[nextY][nextX] == PRINTER:
+                            #print("🖨️")
+                            count += 1
+                        else:
+                            #print("⚠️")
+                            pass
                     else:
-                        print("⚠️")
-                else:
-                    print("❌")
-            
-            if count < 4:
-                number += 1
-            print("💲 " + str(number) + " " + str(count))
+                        #print("❌")
+                        pass
+                
+                if count < 4:
+                    number += 1
+                    
+                    row[col] = POINTER
+                    file[line] = "".join(row)
+                #print("💲 " + str(number) + " " + str(count))
+        print("💲 " + str(number))
+    if number <= 0:
+        loop = False
+    else:
+        allNumber += number
             
 print("\n")
-print("-> Number: " + str(number))             
+print("-> Number: " + str(allNumber))             
     
